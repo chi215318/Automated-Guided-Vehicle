@@ -54,6 +54,7 @@ std::vector<int> Quest4::Gauss_Distribution(int noOfWard, int triple, int single
         // sinh ra số lượng Int = noOfWard
         for(int i = 0; i < noOfWard; i++){
             int ran_int = dis(gen);
+            noOfPoint -= ran_int;
             ListInt.push_back(ran_int);
         }
 
