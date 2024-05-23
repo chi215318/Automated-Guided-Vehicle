@@ -20,6 +20,7 @@ class Quest4{
         Quest4();
         std::vector<std::pair<Ward, int>> OutListWardInt(std::vector<Ward> InListWard, int triple, int single);
         std::vector<int> Gauss_Distribution(int noOfWard, int triple, int single);
+        std::vector<int> Distribution(int noOfWard, int triple, int single);
         double calculateMean(const std::vector<int>& sample);
         double calculateStdDev(const std::vector<int>& sample, double mean);
         int find_min_value(const std::vector<int>& sample);
