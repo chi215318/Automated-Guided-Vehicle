@@ -42,8 +42,7 @@ double Quest4::calculateStdDev(const std::vector<int>& sample, double mean) {
     return sqrt(variance / sample.size());
 }
 
-// sinh ra vector các int sao cho tổng int thỏa mãn yc và tuân theo phân phối chuẩn
-std::vector<int> Quest4::Gauss_Distribution(int noOfWard, int triple, int single){
+std::vector<int> Quest4::Distribution(int noOfWard, int triple, int single){
     int noOfPoint = triple * 3 + single;
     std::default_random_engine gen;
     std::uniform_int_distribution<int> dis(0, noOfWard-1);
@@ -53,12 +52,18 @@ std::vector<int> Quest4::Gauss_Distribution(int noOfWard, int triple, int single
     // phân phối các int trong vector sao cho tổng = max và min = 1
     while(max != 0){
         int i = dis(gen);
-        arrvalue[i] += 1;
+        ListInt[i] += 1;
         max--;
     }
 
+    return ListInt;
+}
+
+// sinh ra vector các int sao cho tổng int thỏa mãn yc và tuân theo phân phối chuẩn
+std::vector<int> Quest4::Gauss_Distribution(int noOfWard, int triple, int single){
+    std::vector<int> ListInt = Distribution(noOfWard, triple, single);
     bool isFine = false;
-    While(!isFine){
+    while (!isFine) {
         // kiểm tra phân phối 
         double mean = calculateMean(ListInt);
         double stdDev = calculateStdDev(ListInt, mean);
