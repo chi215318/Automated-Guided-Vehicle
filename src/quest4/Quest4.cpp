@@ -46,16 +46,20 @@ double Quest4::calculateStdDev(const std::vector<int>& sample, double mean) {
 std::vector<int> Quest4::Gauss_Distribution(int noOfWard, int triple, int single){
     int noOfPoint = triple * 3 + single;
     std::default_random_engine gen;
-    std::uniform_int_distribution<int> dis(1, noOfPoint);
     std::vector<int> ListInt;
     bool isFine = false;
 
     while(!isFine){
         // sinh ra số lượng Int = noOfWard
         for(int i = 0; i < noOfWard; i++){
+            std::uniform_int_distribution<int> dis(1, noOfPoint);
             int ran_int = dis(gen);
             noOfPoint -= ran_int;
             ListInt.push_back(ran_int);
+        }
+        if (ListInt.size() != noOfWard){
+            noOfPoint = triple * 3 + single;
+            continue;
         }
 
         // kiểm tra phân phối 
@@ -72,8 +76,10 @@ std::vector<int> Quest4::Gauss_Distribution(int noOfWard, int triple, int single
         // Nếu giá trị p_value nhỏ hơn mức ý nghĩa thống kê, ta bác bỏ giả thuyết không và kết luận mẫu dữ liệu không tuân theo phân bố chuẩn
         // Nếu giá trị p_value lớn hơn hoặc bằng mức ý nghĩa thống kê, ta không bác bỏ giả thuyết không và kết luận mẫu dữ liệu tuân theo phân bố chuẩn
         double alpha = 0.05; // Mức ý nghĩa thống kê
-        if (p_value < alpha) continue;
-        else isFine = true;
+        if (p_value < alpha) {
+            noOfPoint = triple * 3 + single;
+            continue;
+        } else isFine = true;
     }
 
     return ListInt;
